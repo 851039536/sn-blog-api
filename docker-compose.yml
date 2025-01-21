@@ -5,7 +5,7 @@ services: # 定义应用中的各个服务
     build:
       context: . # 指定构建上下文的路径，这里是当前目录
       dockerfile: Snblog/Dockerfile # 指定Dockerfile的路径，这里是Snblog目录下的Dockerfile
-    image: snblog:latest # 指定构建的镜像名称和标签
+    image: snblog_api:latest # 指定构建的镜像名称和标签
     ports:
       - "8088:80" # 将宿主机的8088端口映射到容器的80端口
       - "443:443" # 将宿主机的443端口映射到容器的443端口

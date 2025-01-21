@@ -12,12 +12,12 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Snblog.Enties.Validator;
 using Snblog.Jwt;
+using Snblog.Service.pollys;
 using Snblog.Service.Service.DataBases;
 using Snblog.Util.Exceptions;
 using SnBlogCore.Jwt;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using ArticleService = Snblog.Service.Service.Articles.ArticleService;
-using Snblog.Service.pollys;
 
 namespace Snblog;
 
@@ -50,6 +50,11 @@ public class Startup
                 option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             );
 
+        // 添加 Health Checks 服务
+        _ = services
+            .AddHealthChecks()
+            .AddCheck<DatabaseHealthCheck>("Database") // 添加自定义健康检查
+            .AddCheck<ExternalServiceHealthCheck>("ExternalService"); // 添加另一个自定义健康检查
         #region 限流
 
         _ = services.AddRateLimiter(_ =>
@@ -281,6 +286,9 @@ public class Startup
         {
             _ = app.UseExceptionMiddleware();
         }
+
+        // 使用 Health Checks 中间件
+        app.UseHealthChecks("/health");
 
         _ = app.UseRateLimiter();
 

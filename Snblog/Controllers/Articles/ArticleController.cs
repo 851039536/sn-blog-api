@@ -3,8 +3,6 @@ using Snblog.IService.IService.Articles;
 using Snblog.Jwt;
 
 namespace Snblog.Controllers.Articles;
-// 定义一个类来存储合并后的结果
-
 
 /// <summary>
 /// 文章API

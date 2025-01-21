@@ -16,7 +16,7 @@ public class TransitionController : ControllerBase {
     /// <param name="imagePath"></param>
     /// <returns></returns>
     [HttpGet("base64")]
-    public IActionResult ToBaseString(string imagePath = "C:\\Users\\ch190006\\Desktop\\123.jpg") {
+    public IActionResult ToBaseString(string imagePath = @"C:\Users\ch190006\Desktop\123.jpg") {
         byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
         string base64String = Convert.ToBase64String(imageBytes);
         Console.WriteLine(base64String);
